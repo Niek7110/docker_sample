@@ -1,0 +1,19 @@
+services:
+  postgres:
+    image: ankane/pgvector:v0.5.1
+    platform: linux/amd64 #アーキテクチャを指定 amd64はAppleシリコン arm64:ARM デバイス（Raspberry Piなど）windowsはwindows/amd64
+    container_name: my_pgvector
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: common_db
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./vector-init-scripts:/docker-entrypoint-initdb.d
+    restart: always
+
+volumes:
+  pgdata:
+
